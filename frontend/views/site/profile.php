@@ -2,11 +2,12 @@
 
 /* @var $this yii\web\View */
 /* @var $user array */
+/* @var $showBonusInfo bool */
 
 $this->title = 'My Profile';
 ?>
 <div class="site-profile-page">
-    <h1>Profile info</h1>
+    <h1>Данные профиля</h1>
 
     <div class="profiles-data">
         <div class="row">
@@ -18,4 +19,9 @@ $this->title = 'My Profile';
             <div class="col-md-11"><?= $user['age'] ?></div>
         </div>
     </div>
+
+    <?php if ($showBonusInfo) {
+        echo $this->render('//bonus/bonus',['bonus' => $user['bonus'] ?? null]);
+    }
+    ?>
 </div>

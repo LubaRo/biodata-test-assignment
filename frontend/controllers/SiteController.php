@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Bonus;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -20,7 +21,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'profile', 'bonus'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -28,7 +29,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'profile', 'bonus'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -111,8 +112,15 @@ class SiteController extends Controller
      */
     public function actionProfile()
     {
+        $user = $this->getCurrentUserInfo();
         return $this->render('profile', [
-            'user' => ['name' => 'test name', 'age' => 43],
+            'user' => $user,
+            'showBonusInfo' => $user['hasBonus'] || Bonus::isAvailableToChoose()
         ]);
+    }
+
+    protected function getCurrentUserInfo()
+    {
+        return ['name' => 'test name', 'age' => 43, 'hasBonus' => false];
     }
 }

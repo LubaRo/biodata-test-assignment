@@ -46,4 +46,29 @@ class Bonus extends \yii\db\ActiveRecord
             'is_infinite' => 'Is Infinite',
         ];
     }
+
+    protected static function getAvailableBonusesCondition()
+    {
+        return 'is_infinite = 1 OR quantity > 0';
+    }
+
+    /**
+     * @return array|null
+     */
+    public static function findAvailableBonuses()
+    {
+        return static::find()
+            ->where(static::getAvailableBonusesCondition())
+            ->all();
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isAvailableToChoose()
+    {
+        return static::find()
+            ->where(static::getAvailableBonusesCondition())
+            ->count() > 0;
+    }
 }
