@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\ClientsSearch;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -27,7 +28,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'clients'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,7 +70,7 @@ class SiteController extends Controller
                 ],
                 [
                     'label' => 'Список клиентов',
-                    'url'   => Url::to(['/'])
+                    'url'   => Url::to(['site/clients'])
                 ]
             ]
         ]);
@@ -110,5 +111,16 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionClients()
+    {
+        $searchModel = new ClientsSearch();
+        $dataProvider = $searchModel->search([]);
+
+        return $this->render('clients', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
