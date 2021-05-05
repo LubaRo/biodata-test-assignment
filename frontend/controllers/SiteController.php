@@ -21,7 +21,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'profile', 'bonus'],
+                'only' => ['logout', 'signup', 'profile'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -29,7 +29,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'profile', 'bonus'],
+                        'actions' => ['logout', 'profile'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -113,9 +113,14 @@ class SiteController extends Controller
     public function actionProfile()
     {
         $user = $this->getCurrentUserInfo();
+
+        $userData = Yii::$app->user->identity;
+        $bonusId = $userData->bonus_id ?? null;
+
         return $this->render('profile', [
-            'user' => $user,
-            'showBonusInfo' => $user['hasBonus'] || Bonus::isAvailableToChoose()
+            'user'  => $user,
+            'showBonusInfo' => $bonusId || Bonus::isAvailableToChoose(),
+            'bonus' => $bonusId ? Bonus::findOne(['id' => $bonusId]) : null
         ]);
     }
 

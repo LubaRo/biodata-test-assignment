@@ -21,7 +21,7 @@ $this->title = 'My Profile';
     </div>
 
     <?php if ($showBonusInfo) {
-        echo $this->render('//bonus/bonus',['bonus' => $user['bonus'] ?? null]);
+        echo $this->render('//bonus/bonus',['bonus' => $bonus]);
     }
     ?>
 </div>
