@@ -26,10 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'quantity',
-            'is_infinite',
+            [
+                'label' => 'Quantity',
+                'value' => function ($model) {
+                    return $model->is_infinite ? 'Не ограничено' : $model->quantity;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
