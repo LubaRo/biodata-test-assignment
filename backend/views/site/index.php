@@ -1,16 +1,15 @@
 <?php
-
 /* @var $this yii\web\View */
+/* @var $navigation array */
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
+    <h1>Панель управления администратора</h1>
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+    <ul class="nav nav-pills nav-stacked">
+        <?php foreach ($navigation as $item): ?>
+            <li><a href="<?= $item['url'] ?>"><?= $item['label'] ?></a></li>
+        <?php endforeach; ?>
+    </ul>
 </div>
