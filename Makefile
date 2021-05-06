@@ -13,3 +13,6 @@ setup:
 	cp -n common/config/main-local.php.example          common/config/main-local.php|| true
 	cp -n common/config/params-local.php.example        common/config/params-local.php|| true
 	cp -n common/config/test-local.php.example          common/config/test-local.php|| true
+	cp -n console/config/main-local.php.example          console/config/main-local.php|| true
+	cp -n console/config/params-local.php.example        console/config/params-local.php|| true
+	cp -n console/config/test-local.php.example          console/config/test-local.php|| true
