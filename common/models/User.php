@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use api\components\SimpleTokenValidator;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -27,7 +28,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
-
 
     /**
      * {@inheritdoc}
@@ -71,7 +71,10 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        if (!SimpleTokenValidator::validateApiToken($token)) {
+            return null;
+        }
+        return static::findOne(['is_admin' => 1]);
     }
 
     /**
