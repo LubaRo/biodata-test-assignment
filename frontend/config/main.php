@@ -40,7 +40,7 @@ return [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'facebook' => [
-                    'class' => 'yii\authclient\clients\Facebook',
+                    'class' => 'frontend\components\authClients\Facebook',
                     'clientId' => '<your-key>',
                     'clientSecret' => '<your-secret>',
                 ],

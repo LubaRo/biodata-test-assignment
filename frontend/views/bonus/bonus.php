@@ -3,7 +3,7 @@
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $bonus array */
+/* @var $bonus Bonus */
 ?>
 <?php Pjax::begin(['enablePushState' => false]); ?>
 <div class="bonus">

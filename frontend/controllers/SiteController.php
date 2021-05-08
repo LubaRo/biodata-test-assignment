@@ -126,6 +126,26 @@ class SiteController extends Controller
 
     protected function getCurrentUserInfo()
     {
-        return ['name' => 'test name', 'age' => 43, 'hasBonus' => false];
+        $authClient = Yii::$app->authClientCollection->getClient('facebook');
+
+        $data = [];
+
+        try {
+            $data = $authClient->getFormattedProfileInfo();
+
+        } catch (\Exception $exception) {
+            Yii::$app->getSession()->setFlash('error', [
+                Yii::t('app', 'Не удалось получить подробную информацию о профиле'),
+            ]);
+        }
+
+
+        if ($data['picture']) {
+            $userInfo['picture'] = $data['picture'];
+            unset($data['picture']);
+        }
+        $userInfo['data'] = $data;
+
+        return $userInfo;
     }
 }
